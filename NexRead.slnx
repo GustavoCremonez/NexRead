@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="NexRead.Api/NexRead.Api.csproj" />
+  <Project Path="NexRead.Application/NexRead.Application.csproj" />
+  <Project Path="NexRead.Domain/NexRead.Domain.csproj" />
+  <Project Path="NexRead.Infra/NexRead.Infra.csproj" />
+</Solution>
