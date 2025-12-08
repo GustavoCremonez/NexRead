@@ -1,0 +1,39 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using NexRead.Domain.Entities;
+
+namespace NexRead.Infra.EntitiesConfiguration;
+
+public class UserConfiguration : IEntityTypeConfiguration<User>
+{
+    public void Configure(EntityTypeBuilder<User> builder)
+    {
+        builder.ToTable("Users");
+
+        builder.HasKey(u => u.Id);
+
+        builder.Property(u => u.Id)
+            .ValueGeneratedOnAdd();
+
+        builder.Property(u => u.Name)
+            .HasMaxLength(100)
+            .IsRequired();
+
+        builder.Property(u => u)
+                .HasMaxLength(255)
+                .IsRequired();
+
+        builder.Property(u => u.PasswordHash)
+            .HasMaxLength(255)
+            .IsRequired();
+
+        builder.Property(u => u.PasswordSalt)
+            .HasMaxLength(255)
+            .IsRequired();
+
+        builder.Property(u => u.CreatedAt)
+            .IsRequired();
+
+        builder.Property(u => u.UpdatedAt);
+    }
+}
