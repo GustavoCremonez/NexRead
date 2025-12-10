@@ -1,3 +1,4 @@
+using NexRead.Api.Extensions;
 using Microsoft.OpenApi;
 using System.Reflection;
 
@@ -32,6 +33,8 @@ if (app.Environment.IsDevelopment())
         c.RoutePrefix = string.Empty;
     });
 }
+
+app.UseExceptionHandling();
 
 app.UseHttpsRedirection();
 
