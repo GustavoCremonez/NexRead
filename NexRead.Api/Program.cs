@@ -1,5 +1,6 @@
-var builder = WebApplication.CreateBuilder(args);
+using NexRead.Api.Extensions;
 
+var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
@@ -10,6 +11,8 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+app.UseExceptionHandling();
 
 app.UseHttpsRedirection();
 
