@@ -1,0 +1,15 @@
+﻿using FluentValidation;
+using NexRead.Dto.Author.Request;
+
+namespace NexRead.Application.Validators;
+
+public class CreateAuthorValidator : AbstractValidator<AuthorRequest>
+{
+    public CreateAuthorValidator()
+    {
+        RuleFor(a => a.Name)
+            .NotEmpty().WithMessage("Name is required.")
+            .MinimumLength(3).WithMessage("Name must contain a minimum of 3 characters.")
+            .MaximumLength(100).WithMessage("Name must contain a maximum of 100 characters.");
+    }
+}

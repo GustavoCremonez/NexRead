@@ -1,10 +1,17 @@
-using NexRead.Api.Extensions;
 using Microsoft.OpenApi;
+using NexRead.Api.Extensions;
+using NexRead.Api.Filters;
+using NexRead.Infra;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<FluentValidationActionFilter>();
+});
+builder.Services.AddInfrastructure(builder.Configuration);
+
 builder.Services.AddOpenApi();
 
 builder.Services.AddSwaggerGen(c =>
