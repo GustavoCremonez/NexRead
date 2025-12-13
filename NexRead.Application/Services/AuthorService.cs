@@ -20,18 +20,61 @@ public class AuthorService : IAuthorService
         _authorRepository = authorRepository;
     }
 
-    public async Task<Result<AuthorResponse>> CreateAuthorAsync(AuthorRequest createAuthorDto)
+    public async Task<Result<AuthorResponse>> CreateAuthorAsync(CreateAuthorRequest createAuthorRequest)
     {
-        var author = await _authorRepository.GetAuthorByNameAsync(createAuthorDto.Name);
+        var author = await _authorRepository.GetAuthorByNameAsync(createAuthorRequest.Name);
 
         if (author is not null)
             throw new ConflictException("An author with this name already exists.");
 
-        var newAuthor = new Author(Guid.NewGuid(), createAuthorDto.Name);
+        var newAuthor = new Author(Guid.NewGuid(), createAuthorRequest.Name);
 
         await _generalRepository.AddAsync(newAuthor);
         await _generalRepository.SaveChangesAsync();
 
         return Result.Success(GenericMapper<Author, AuthorResponse>.ToDto(newAuthor));
+    }
+
+    public async Task<Result<AuthorResponse>> UpdateAuthorAsync(UpdateAuthorRequest updateAuthorRequest)
+    {
+        var authorSameName = await _authorRepository.GetAuthorByNameAsync(updateAuthorRequest.Name);
+
+        if (authorSameName is not null)
+            throw new ConflictException("An author with this name already exists.");
+
+        Author? existingAuthor = await _generalRepository.GetByIdAsync(updateAuthorRequest.Id);
+
+        if (existingAuthor is null)
+            throw new NotFoundException("Author not found.");
+
+        existingAuthor.Update(updateAuthorRequest.Name);
+
+        _generalRepository.Update(existingAuthor);
+        await _generalRepository.SaveChangesAsync();
+
+        return Result.Success(GenericMapper<Author, AuthorResponse>.ToDto(existingAuthor));
+    }
+
+    public async Task<Result<AuthorResponse>> GetAuthorAsync(Guid authorId)
+    {
+        var author = await _generalRepository.GetByIdAsync(authorId);
+
+        if (author is null)
+            throw new NotFoundException("Author not found.");
+
+        return Result.Success(GenericMapper<Author, AuthorResponse>.ToDto(author));
+    }
+
+    public async Task<Result> DeleteAuthorAsync(Guid authorId)
+    {
+        var author = await _generalRepository.GetByIdAsync(authorId);
+
+        if (author is null)
+            throw new NotFoundException("Author not found.");
+
+        _generalRepository.Delete(author);
+        await _generalRepository.SaveChangesAsync();
+
+        return Result.Success();
     }
 }

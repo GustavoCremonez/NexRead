@@ -6,5 +6,11 @@ namespace NexRead.Application.Interfaces;
 
 public interface IAuthorService
 {
-    Task<Result<AuthorResponse>> CreateAuthorAsync(AuthorRequest createAuthorDto);
+    Task<Result<AuthorResponse>> CreateAuthorAsync(CreateAuthorRequest createAuthorRequest);
+
+    Task<Result<AuthorResponse>> UpdateAuthorAsync(UpdateAuthorRequest updateAuthorRequest);
+
+    Task<Result<AuthorResponse>> GetAuthorAsync(Guid authorId);
+
+    Task<Result> DeleteAuthorAsync(Guid authorId);
 }
