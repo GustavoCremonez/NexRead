@@ -16,6 +16,8 @@ public class AuthorRepository : IAuthorRepository
 
     public async Task<Author?> GetAuthorByNameAsync(string name)
     {
-        return await _context.Authors.FirstOrDefaultAsync(a => a.Name.Equals(name));
+        return await _context.Authors
+            .AsNoTracking()
+            .FirstOrDefaultAsync(a => a.Name.Equals(name));
     }
 }

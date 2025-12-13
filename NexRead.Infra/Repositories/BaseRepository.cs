@@ -4,12 +4,12 @@ using NexRead.Infra.Context;
 
 namespace NexRead.Infra.Repositories;
 
-public class GeneralRepository<T> : IGeneralRepository<T> where T : class
+public class BaseRepository<T> : IBaseRepository<T> where T : class
 {
     private readonly ApplicationDbContext _context;
     private readonly DbSet<T> _dbSet;
 
-    public GeneralRepository(ApplicationDbContext context)
+    public BaseRepository(ApplicationDbContext context)
     {
         _context = context;
         _dbSet = _context.Set<T>();
@@ -23,6 +23,14 @@ public class GeneralRepository<T> : IGeneralRepository<T> where T : class
         await _dbSet.AddAsync(entity);
     }
 
+    public async Task AddRangeAsync(ICollection<T> entities)
+    {
+        if (entities == null || entities.Count == 0)
+            throw new ArgumentNullException(nameof(entities));
+
+        await _dbSet.AddRangeAsync(entities);
+    }
+
     public void Update(T entity)
     {
         if (entity == null)
@@ -30,6 +38,14 @@ public class GeneralRepository<T> : IGeneralRepository<T> where T : class
 
         _dbSet.Attach(entity);
         _context.Entry(entity).State = EntityState.Modified;
+    }
+
+    public void UpdateRange(ICollection<T> entities)
+    {
+        if (entities == null || entities.Count == 0)
+            throw new ArgumentNullException(nameof(entities));
+
+        _dbSet.UpdateRange(entities);
     }
 
     public void Delete(T entity)
@@ -45,11 +61,19 @@ public class GeneralRepository<T> : IGeneralRepository<T> where T : class
         _dbSet.Remove(entity);
     }
 
-    public async Task<T> GetByIdAsync(Guid id, bool asNoTracking = false)
+    public void DeleteRange(ICollection<T> entities)
+    {
+        if (entities == null || entities.Count == 0)
+            throw new ArgumentNullException(nameof(entities));
+
+        _dbSet.RemoveRange(entities);
+    }
+
+    public async Task<T> GetByIdAsync(int id, bool asNoTracking = false)
     {
         if (asNoTracking)
         {
-            return await _dbSet.AsNoTracking().FirstOrDefaultAsync(e => EF.Property<Guid>(e, "Id") == id);
+            return await _dbSet.AsNoTracking().FirstOrDefaultAsync(e => EF.Property<int>(e, "Id") == id);
         }
 
         return await _dbSet.FindAsync(id);

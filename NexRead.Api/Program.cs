@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(options =>
 {
-    options.Filters.Add<FluentValidationActionFilter>();
+    options.Filters.Add<ValidationActionFilter>();
 });
 builder.Services.AddInfrastructure(builder.Configuration);
 

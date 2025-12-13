@@ -10,7 +10,7 @@ public interface IAuthorService
 
     Task<Result<AuthorResponse>> UpdateAuthorAsync(UpdateAuthorRequest updateAuthorRequest);
 
-    Task<Result<AuthorResponse>> GetAuthorAsync(Guid authorId);
+    Task<Result<AuthorResponse>> GetAuthorAsync(int authorId);
 
-    Task<Result> DeleteAuthorAsync(Guid authorId);
+    Task<Result> DeleteAuthorAsync(int authorId);
 }

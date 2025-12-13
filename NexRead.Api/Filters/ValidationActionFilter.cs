@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace NexRead.Api.Filters;
 
-public class FluentValidationActionFilter : IActionFilter
+public class ValidationActionFilter : IActionFilter
 {
     public void OnActionExecuting(ActionExecutingContext context)
     {

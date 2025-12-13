@@ -11,10 +11,10 @@ namespace NexRead.Application.Services;
 
 public class AuthorService : IAuthorService
 {
-    private readonly IGeneralRepository<Author> _generalRepository;
+    private readonly IBaseRepository<Author> _generalRepository;
     private readonly IAuthorRepository _authorRepository;
 
-    public AuthorService(IGeneralRepository<Author> generalRepository, IAuthorRepository authorRepository)
+    public AuthorService(IBaseRepository<Author> generalRepository, IAuthorRepository authorRepository)
     {
         _generalRepository = generalRepository;
         _authorRepository = authorRepository;
@@ -27,7 +27,7 @@ public class AuthorService : IAuthorService
         if (author is not null)
             throw new ConflictException("An author with this name already exists.");
 
-        var newAuthor = new Author(Guid.NewGuid(), createAuthorRequest.Name);
+        var newAuthor = new Author(createAuthorRequest.Name);
 
         await _generalRepository.AddAsync(newAuthor);
         await _generalRepository.SaveChangesAsync();
@@ -55,7 +55,7 @@ public class AuthorService : IAuthorService
         return Result.Success(GenericMapper<Author, AuthorResponse>.ToDto(existingAuthor));
     }
 
-    public async Task<Result<AuthorResponse>> GetAuthorAsync(Guid authorId)
+    public async Task<Result<AuthorResponse>> GetAuthorAsync(int authorId)
     {
         var author = await _generalRepository.GetByIdAsync(authorId);
 
@@ -65,7 +65,7 @@ public class AuthorService : IAuthorService
         return Result.Success(GenericMapper<Author, AuthorResponse>.ToDto(author));
     }
 
-    public async Task<Result> DeleteAuthorAsync(Guid authorId)
+    public async Task<Result> DeleteAuthorAsync(int authorId)
     {
         var author = await _generalRepository.GetByIdAsync(authorId);
 

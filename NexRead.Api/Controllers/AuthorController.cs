@@ -33,7 +33,6 @@ public class AuthorController : ControllerBase
     [ProducesResponseType(typeof(Result<AuthorResponse>), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(Result<AuthorResponse>), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(Result<AuthorResponse>), StatusCodes.Status409Conflict)]
-    [ProducesResponseType(typeof(Result<AuthorResponse>), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> CreateAuthorAsync([FromBody] CreateAuthorRequest createAuthorRequest)
     {
         var response = await _authorService.CreateAuthorAsync(createAuthorRequest);
@@ -48,14 +47,13 @@ public class AuthorController : ControllerBase
     /// <returns>Dados do autor atualizado</returns>
     /// <response code="200">Autor atualizado com sucesso</response>
     /// <response code="400">Dados inválidos ou nome já em uso</response>
-    /// <response code="404">Restaurante não encontrado</response>
+    /// <response code="404">Autor não encontrado</response>
     /// <response code="409">Já existe um autor com esse nome</response>
     [HttpPut]
     [ProducesResponseType(typeof(Result<AuthorResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(Result<AuthorResponse>), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(Result<AuthorResponse>), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(Result<AuthorResponse>), StatusCodes.Status409Conflict)]
-    [ProducesResponseType(typeof(Result<AuthorResponse>), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Update([FromBody] UpdateAuthorRequest updateAuthorRequest)
     {
         var response = await _authorService.UpdateAuthorAsync(updateAuthorRequest);
@@ -73,8 +71,7 @@ public class AuthorController : ControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(Result<AuthorResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(Result<AuthorResponse>), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(Result<AuthorResponse>), StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetAuthorAsync(Guid id)
+    public async Task<IActionResult> GetAuthorAsync(int id)
     {
         var response = await _authorService.GetAuthorAsync(id);
 
@@ -91,8 +88,7 @@ public class AuthorController : ControllerBase
     [HttpDelete("{id}")]
     [ProducesResponseType(typeof(Result), StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(Result), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(Result), StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Delete(Guid id)
+    public async Task<IActionResult> Delete(int id)
     {
         var response = await _authorService.DeleteAuthorAsync(id);
 

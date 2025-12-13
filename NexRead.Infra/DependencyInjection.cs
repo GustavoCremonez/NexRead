@@ -26,7 +26,7 @@ public static class DependencyInjection
         #endregion
 
         #region General
-        services.AddScoped(typeof(IGeneralRepository<>), typeof(GeneralRepository<>));
+        services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
         #endregion
 
         return services;
