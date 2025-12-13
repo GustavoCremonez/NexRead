@@ -18,6 +18,6 @@ public class AuthorRepository : IAuthorRepository
     {
         return await _context.Authors
             .AsNoTracking()
-            .FirstOrDefaultAsync(a => a.Name.Equals(name));
+            .SingleOrDefaultAsync(a => a.Name.Equals(name));
     }
 }
