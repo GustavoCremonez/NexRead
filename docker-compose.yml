@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: nexread-postgres
+    environment:
+      POSTGRES_DB: nexread
+      POSTGRES_USER: nexread
+      POSTGRES_PASSWORD: nexread123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - nexread-network
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: nexread-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - nexread-network
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  nexread-network:
+    driver: bridge
