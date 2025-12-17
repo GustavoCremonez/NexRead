@@ -9,7 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="10.0.1" />
   </ItemGroup>
 
@@ -20,6 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\NexRead.Application\NexRead.Application.csproj" />
     <ProjectReference Include="..\NexRead.Domain\NexRead.Domain.csproj" />
+    <ProjectReference Include="..\NexRead.Infra\NexRead.Infra.csproj" />
   </ItemGroup>
 
 </Project>
