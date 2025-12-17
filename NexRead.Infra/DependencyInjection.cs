@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NexRead.Application.AppServices;
@@ -26,6 +27,17 @@ public static class DependencyInjection
 
         services.AddScoped<IAuthAppService, AuthAppService>();
         services.AddScoped<IUserAppService, UserAppService>();
+        
+        services.AddValidatorsFromAssembly(typeof(CreateAuthorValidator).Assembly);
+
+        #region Author
+        services.AddScoped<IAuthorService, AuthorService>();
+        services.AddScoped<IAuthorRepository, AuthorRepository>();
+        #endregion
+
+        #region General
+        services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+        #endregion
 
         return services;
     }

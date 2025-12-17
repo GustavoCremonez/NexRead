@@ -2,9 +2,9 @@
 
 public class UserPreference
 {
-    public Guid Id { get; private set; }
+    public int Id { get; private set; }
 
-    public Guid UserId { get; private set; }
+    public int UserId { get; private set; }
 
     public User User { get; private set; }
 

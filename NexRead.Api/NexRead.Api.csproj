@@ -19,7 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\NexRead.Application\NexRead.Application.csproj" />
+    <ProjectReference Include="..\NexRead.Infra\NexRead.Infra.csproj" />
   </ItemGroup>
 
   <ItemGroup>

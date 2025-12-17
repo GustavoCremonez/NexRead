@@ -2,5 +2,6 @@
   <Project Path="NexRead.Api/NexRead.Api.csproj" />
   <Project Path="NexRead.Application/NexRead.Application.csproj" />
   <Project Path="NexRead.Domain/NexRead.Domain.csproj" />
+  <Project Path="NexRead.Dto/NexRead.Dto.csproj" Id="7d4a389a-cf7b-4007-bc94-ee409fdb4db8" />
   <Project Path="NexRead.Infra/NexRead.Infra.csproj" />
 </Solution>
