@@ -53,11 +53,19 @@ public static class ResultExtensions
     public static IActionResult ToActionResult<T>(this Result<T> result)
     {
         if (result.IsFailure)
-            throw new InvalidOperationException("Cannot convert failed result to ActionResult. Use middleware to handle failures.");
+            return new BadRequestObjectResult(new { error = result.Error });
 
         if (result.Value is null)
             return new NoContentResult();
 
         return new OkObjectResult(result.Value);
+    }
+
+    public static IActionResult ToActionResult(this Result result)
+    {
+        if (result.IsFailure)
+            return new BadRequestObjectResult(new { error = result.Error });
+
+        return new NoContentResult();
     }
 }
