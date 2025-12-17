@@ -10,6 +10,15 @@ public class ValidationException : DomainException
         Errors = new Dictionary<string, string[]>();
     }
 
+    public ValidationException(string message)
+        : base(message)
+    {
+        Errors = new Dictionary<string, string[]>
+        {
+            { "Error", new[] { message } }
+        };
+    }
+
     public ValidationException(IDictionary<string, string[]> errors)
         : base("Ocorreram um ou mais erros de validação.")
     {
