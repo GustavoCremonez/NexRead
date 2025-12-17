@@ -27,6 +27,7 @@
     <ProjectReference Include="..\NexRead.Application\NexRead.Application.csproj" />
     <ProjectReference Include="..\NexRead.Domain\NexRead.Domain.csproj" />
     <ProjectReference Include="..\NexRead.Infra\NexRead.Infra.csproj" />
+    <ProjectReference Include="..\NexRead.Dto\NexRead.Dto.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NexRead.Api.Extensions;
 using NexRead.Application.AppServices;
-using NexRead.Application.DTOs.User.Responses;
+using NexRead.Dto.User.Response;
 
 namespace NexRead.Api.Controllers;
 

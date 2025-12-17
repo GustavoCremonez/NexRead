@@ -1,4 +1,4 @@
-namespace NexRead.Application.DTOs.User.Responses;
+namespace NexRead.Dto.User.Response;
 
 /// <summary>
 /// Response com dados do perfil do usuário

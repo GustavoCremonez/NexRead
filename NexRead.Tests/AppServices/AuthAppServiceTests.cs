@@ -1,7 +1,7 @@
 using FluentAssertions;
 using NSubstitute;
 using NexRead.Application.AppServices;
-using NexRead.Application.DTOs.Auth.Requests;
+using NexRead.Dto.Auth.Request;
 using NexRead.Application.Services;
 using NexRead.Domain.Entities;
 using NexRead.Domain.Repositories;

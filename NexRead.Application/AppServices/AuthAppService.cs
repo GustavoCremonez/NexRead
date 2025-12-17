@@ -1,6 +1,6 @@
 using NexRead.Application.Common;
-using NexRead.Application.DTOs.Auth.Requests;
-using NexRead.Application.DTOs.Auth.Responses;
+using NexRead.Dto.Auth.Request;
+using NexRead.Dto.Auth.Response;
 using NexRead.Application.Services;
 using NexRead.Domain.Entities;
 using NexRead.Domain.Repositories;

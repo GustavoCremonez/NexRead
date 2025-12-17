@@ -1,4 +1,4 @@
-namespace NexRead.Application.DTOs.Auth.Responses;
+namespace NexRead.Dto.Auth.Response;
 
 /// <summary>
 /// Response do registro de usuário

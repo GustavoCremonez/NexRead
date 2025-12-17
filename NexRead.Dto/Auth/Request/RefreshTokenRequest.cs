@@ -1,4 +1,4 @@
-namespace NexRead.Application.DTOs.Auth.Requests;
+namespace NexRead.Dto.Auth.Request;
 
 /// <summary>
 /// Request para renovação de token de acesso

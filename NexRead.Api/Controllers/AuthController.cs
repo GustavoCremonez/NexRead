@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NexRead.Api.Extensions;
 using NexRead.Application.AppServices;
-using NexRead.Application.DTOs.Auth.Requests;
-using NexRead.Application.DTOs.Auth.Responses;
+using NexRead.Dto.Auth.Request;
+using NexRead.Dto.Auth.Response;
 
 namespace NexRead.Api.Controllers;
 
@@ -152,9 +152,3 @@ public class AuthController : ControllerBase
         return result.ToNoContentActionResult();
     }
 }
-
-/// <summary>
-/// Request para logout
-/// </summary>
-/// <param name="RefreshToken">Refresh token opcional para revogar</param>
-public record LogoutRequest(string? RefreshToken);

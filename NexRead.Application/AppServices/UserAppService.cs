@@ -1,5 +1,5 @@
 using NexRead.Application.Common;
-using NexRead.Application.DTOs.User.Responses;
+using NexRead.Dto.User.Response;
 using NexRead.Application.Services;
 using NexRead.Domain.Repositories;
 
