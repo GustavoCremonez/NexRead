@@ -11,6 +11,9 @@ public class ApplicationDbContext : DbContext
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
     public DbSet<Author> Authors => Set<Author>();
     public DbSet<Genre> Genres => Set<Genre>();
+    public DbSet<Book> Books => Set<Book>();
+    public DbSet<BookAuthor> BookAuthors => Set<BookAuthor>();
+    public DbSet<BookGenre> BookGenres => Set<BookGenre>();
     public DbSet<UserPreference> UserPreferences => Set<UserPreference>();
     public DbSet<UserPreferredGenre> UserPreferredGenres => Set<UserPreferredGenre>();
     public DbSet<UserPreferredAuthor> UserPreferredAuthors => Set<UserPreferredAuthor>();

@@ -12,6 +12,7 @@ public class Author
         CreatedAt = DateTime.UtcNow;
         UpdatedAt = DateTime.UtcNow;
         UserPreferredAuthors = new List<UserPreferredAuthor>();
+        BookAuthors = new List<BookAuthor>();
     }
 
     public int Id { get; private set; }
@@ -23,6 +24,8 @@ public class Author
     public DateTime UpdatedAt { get; private set; }
 
     public ICollection<UserPreferredAuthor> UserPreferredAuthors { get; private set; }
+
+    public ICollection<BookAuthor> BookAuthors { get; private set; }
 
     public void Update(string name)
     {

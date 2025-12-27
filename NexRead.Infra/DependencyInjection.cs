@@ -38,6 +38,11 @@ public static class DependencyInjection
         services.AddScoped<IAuthorRepository, AuthorRepository>();
         #endregion
 
+        #region Book
+        services.AddScoped<IBookService, BookService>();
+        services.AddScoped<IBookRepository, BookRepository>();
+        #endregion
+
         #region General
         services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
         #endregion
