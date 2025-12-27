@@ -28,6 +28,7 @@ public class Book
         UpdatedAt = DateTime.UtcNow;
         BookAuthors = new List<BookAuthor>();
         BookGenres = new List<BookGenre>();
+        UserLibraries = new List<UserLibrary>();
     }
 
     public int Id { get; private set; }
@@ -55,6 +56,8 @@ public class Book
     public ICollection<BookAuthor> BookAuthors { get; private set; }
 
     public ICollection<BookGenre> BookGenres { get; private set; }
+
+    public ICollection<UserLibrary> UserLibraries { get; private set; }
 
     public void Update(
         string title,

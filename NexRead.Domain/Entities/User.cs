@@ -23,11 +23,14 @@ public class User
 
     public ICollection<UserPreferredAuthor> UserPreferredAuthors { get; private set; }
 
+    public ICollection<UserLibrary> UserLibraries { get; private set; }
+
     private User()
     {
         UserPreferences = new List<UserPreference>();
         UserPreferredGenres = new List<UserPreferredGenre>();
         UserPreferredAuthors = new List<UserPreferredAuthor>();
+        UserLibraries = new List<UserLibrary>();
     }
 
     public static User Create(string name, ValueObjects.Email email, string passwordHash)

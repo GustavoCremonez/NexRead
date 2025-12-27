@@ -17,6 +17,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<UserPreference> UserPreferences => Set<UserPreference>();
     public DbSet<UserPreferredGenre> UserPreferredGenres => Set<UserPreferredGenre>();
     public DbSet<UserPreferredAuthor> UserPreferredAuthors => Set<UserPreferredAuthor>();
+    public DbSet<UserLibrary> UserLibraries => Set<UserLibrary>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -48,6 +48,11 @@ public static class DependencyInjection
         services.AddScoped<IGenreRepository, GenreRepository>();
         #endregion
 
+        #region UserLibrary
+        services.AddScoped<IUserLibraryService, UserLibraryService>();
+        services.AddScoped<IUserLibraryRepository, UserLibraryRepository>();
+        #endregion
+
         #region General
         services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
         #endregion
