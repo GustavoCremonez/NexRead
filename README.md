@@ -64,41 +64,53 @@ Funcionalidades planejadas fora do MVP:
 
 ## 6. Escopo do MVP (POC)
 
-O MVP valida a ideia central:  
+O MVP valida a ideia central:
 **buscar livros, salvar leituras e receber recomendações simples.**
 
-### Funcionalidades do MVP
+### Status de Implementação do MVP
 
-#### 6.1 Autenticação básica
-- Login simples
-- Identificação do usuário no sistema
+#### ✅ 6.1 Autenticação (Completo)
+- ✅ Registro de usuários
+- ✅ Login/Logout
+- ✅ Refresh tokens
+- ✅ Autenticação baseada em cookies
+- ✅ Perfil do usuário
 
-#### 6.2 Busca de livros
-- Busca por título ou autor
-- Consumo de APIs externas
-- Cache local dos livros no banco
+#### ✅ 6.2 Gerenciamento de Livros (Completo)
+- ✅ CRUD completo de Books
+- ✅ CRUD completo de Authors
+- ✅ CRUD completo de Genres
+- ✅ Relacionamentos N:N (BookAuthors, BookGenres)
+- ✅ Validações com FluentValidation
+- 🔄 Busca em APIs externas (estrutura criada, implementação pendente)
+  - Interface IExternalBookApiClient definida
+  - GoogleBooksClient preparado com TODOs
+  - Ver: `NexRead.Infra/ExternalApis/README_GOOGLE_BOOKS.md`
 
-#### 6.3 Página de detalhes do livro
-- Capa
-- Título
-- Autor(es)
-- Gêneros
-- Descrição
-- Avaliação média (quando disponível)
-- Ação: adicionar à biblioteca
+#### ✅ 6.3 Detalhes do Livro (Completo via API)
+Endpoint: `GET /api/books/{id}`
+- ✅ Título, descrição, ISBN
+- ✅ Autores (lista completa)
+- ✅ Gêneros (lista completa)
+- ✅ Imagem de capa (URL)
+- ✅ Data de publicação, páginas, idioma
+- ✅ Avaliação média
 
-#### 6.4 Biblioteca do usuário
-- Estados:
-  - Want to Read
-  - Reading
-  - Read
-- Um livro por estado, por usuário
+#### ✅ 6.4 Biblioteca do Usuário (Completo)
+Endpoints: `POST/PUT/DELETE/GET /api/userlibrary`
+- ✅ Estados: WantToRead (1), Reading (2), Read (3)
+- ✅ Um livro por usuário (único)
+- ✅ Alteração de status
+- ✅ Listagem por status
+- ✅ Constraint único (UserId + BookId)
 
-#### 6.5 Recomendação simples (v1)
-- Baseada em:
-  - gêneros dos livros da biblioteca
-  - avaliação média
-- Regras determinísticas (sem ML avançado)
+#### ✅ 6.5 Recomendação Inteligente (Completo)
+Endpoint: `GET /api/recommendations`
+- ✅ Análise de gêneros dos livros lidos/lendo
+- ✅ Busca de livros similares por gênero
+- ✅ Ordenação por avaliação e relevância de gênero
+- ✅ Fallback para top-rated quando sem biblioteca
+- ✅ Exclusão de livros já na biblioteca
 
 ---
 
