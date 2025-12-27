@@ -9,6 +9,7 @@ using NexRead.Application.Validators;
 using NexRead.Domain.Interfaces;
 using NexRead.Domain.Repositories;
 using NexRead.Infra.Context;
+using NexRead.Infra.ExternalApis;
 using NexRead.Infra.Repositories;
 using NexRead.Infra.Services;
 
@@ -56,6 +57,12 @@ public static class DependencyInjection
         #region Recommendation
         services.AddScoped<IRecommendationService, RecommendationService>();
         services.AddScoped<IRecommendationRepository, RecommendationRepository>();
+        #endregion
+
+        #region External APIs
+        // TODO: Uncomment when Google Books client is fully implemented
+        // services.AddHttpClient<IExternalBookApiClient, GoogleBooksClient>();
+        // TODO: Add API key configuration from appsettings.json
         #endregion
 
         #region General
