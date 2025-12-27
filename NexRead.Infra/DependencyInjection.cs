@@ -43,6 +43,11 @@ public static class DependencyInjection
         services.AddScoped<IBookRepository, BookRepository>();
         #endregion
 
+        #region Genre
+        services.AddScoped<IGenreService, GenreService>();
+        services.AddScoped<IGenreRepository, GenreRepository>();
+        #endregion
+
         #region General
         services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
         #endregion
