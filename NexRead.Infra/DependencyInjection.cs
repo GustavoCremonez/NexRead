@@ -53,6 +53,11 @@ public static class DependencyInjection
         services.AddScoped<IUserLibraryRepository, UserLibraryRepository>();
         #endregion
 
+        #region Recommendation
+        services.AddScoped<IRecommendationService, RecommendationService>();
+        services.AddScoped<IRecommendationRepository, RecommendationRepository>();
+        #endregion
+
         #region General
         services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
         #endregion
