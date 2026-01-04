@@ -1,9 +1,5 @@
-// TODO: Uncomment when GoogleBooksClient is fully implemented and registered in DI
-// See: NexRead.Infra/ExternalApis/README_GOOGLE_BOOKS.md for implementation guide
-
-/*
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NexRead.Api.Extensions;
 using NexRead.Application.Interfaces;
 using NexRead.Dto.Book.Response;
 
@@ -14,7 +10,7 @@ namespace NexRead.Api.Controllers;
 /// </summary>
 [Route("api/external-books")]
 [ApiController]
-[Authorize]
+//[Authorize]
 public class ExternalBooksController : ControllerBase
 {
     private readonly IExternalBookApiClient _externalBookApiClient;
@@ -31,15 +27,7 @@ public class ExternalBooksController : ControllerBase
     /// <param name="limit">Maximum results (default: 10)</param>
     /// <returns>List of books from external API</returns>
     /// <response code="200">Returns list of books</response>
-    /// <response code="501">Not implemented yet</response>
     /// <remarks>
-    /// TODO: This endpoint will search Google Books API and cache results in the database.
-    ///
-    /// Implementation steps:
-    /// 1. Call Google Books API
-    /// 2. Map results to BookResponse
-    /// 3. Cache books in database (authors, genres, etc.)
-    /// 4. Return results to client
     /// </remarks>
     [HttpGet("search")]
     [ProducesResponseType(typeof(IEnumerable<BookResponse>), StatusCodes.Status200OK)]
@@ -47,7 +35,8 @@ public class ExternalBooksController : ControllerBase
     public async Task<IActionResult> SearchBooks([FromQuery] string query, [FromQuery] int limit = 10)
     {
         var results = await _externalBookApiClient.SearchBooksAsync(query, limit);
-        return Ok(results);
+
+        return results.ToOkActionResult();
     }
 
     /// <summary>
@@ -71,4 +60,3 @@ public class ExternalBooksController : ControllerBase
         return Ok(book);
     }
 }
-*/

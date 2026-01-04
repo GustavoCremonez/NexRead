@@ -1,4 +1,4 @@
-using NexRead.Application.Services;
+using NexRead.Application.Interfaces;
 
 namespace NexRead.Infra.Services;
 

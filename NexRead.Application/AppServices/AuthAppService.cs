@@ -1,10 +1,10 @@
 using NexRead.Application.Common;
 using NexRead.Dto.Auth.Request;
 using NexRead.Dto.Auth.Response;
-using NexRead.Application.Services;
 using NexRead.Domain.Entities;
 using NexRead.Domain.Repositories;
 using NexRead.Domain.ValueObjects;
+using NexRead.Application.Interfaces;
 
 namespace NexRead.Application.AppServices;
 

@@ -1,8 +1,9 @@
-using NexRead.Api.Extensions;
-using NexRead.Infra;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using NexRead.Api.Extensions;
 using NexRead.Api.Filters;
+using NexRead.Infra;
 using System.Reflection;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,21 @@ builder.Services.AddOpenApi();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddInfrastructure(builder.Configuration);
+
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddPolicy("google-books", context =>
+        RateLimitPartition.GetTokenBucketLimiter(
+            partitionKey: "google-books",
+            factory: _ => new TokenBucketRateLimiterOptions
+            {
+                TokenLimit = 10,
+                TokensPerPeriod = 10,
+                ReplenishmentPeriod = TimeSpan.FromSeconds(1),
+                AutoReplenishment = true,
+                QueueLimit = 5
+            }));
+});
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -43,6 +59,8 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddSwaggerGen(c =>
 {
+    c.CustomSchemaIds(type => type.FullName);
+
     c.SwaggerDoc("v1", new()
     {
         Title = "NexRead API",
@@ -74,6 +92,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseRateLimiter();
 
 app.MapControllers();
 

@@ -1,4 +1,4 @@
-namespace NexRead.Application.Services;
+namespace NexRead.Application.Interfaces;
 
 public interface IPasswordHasher
 {

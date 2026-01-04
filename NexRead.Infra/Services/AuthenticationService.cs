@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
-using IAuthenticationService = NexRead.Application.Services.IAuthenticationService;
+using IAuthenticationService = NexRead.Application.Interfaces.IAuthenticationService;
 
 namespace NexRead.Infra.Services;
 

@@ -1,5 +1,9 @@
+using Microsoft.Extensions.Configuration;
+using NexRead.Application.Common;
 using NexRead.Application.Interfaces;
+using NexRead.Application.Mappers;
 using NexRead.Dto.Book.Response;
+using System.Text.Json;
 
 namespace NexRead.Infra.ExternalApis;
 
@@ -9,25 +13,64 @@ namespace NexRead.Infra.ExternalApis;
 public class GoogleBooksClient : IExternalBookApiClient
 {
     private readonly HttpClient _httpClient;
+    private readonly IConfiguration _configuration;
+    private readonly string GOOGLE_BOOKS_API_KEY;
 
-    public GoogleBooksClient(HttpClient httpClient)
+    public GoogleBooksClient(HttpClient httpClient, IConfiguration configuration)
     {
         _httpClient = httpClient;
-        // TODO: Configure base address and headers
-        // _httpClient.BaseAddress = new Uri("https://www.googleapis.com/books/v1/");
+        _configuration = configuration;
+        GOOGLE_BOOKS_API_KEY = _configuration["GoogleBooks:ApiKey"];
     }
 
-    public async Task<IEnumerable<BookResponse>> SearchBooksAsync(string query, int limit = 10)
+    public async Task<Result<IEnumerable<BookResponse>>> SearchBooksAsync(string query, int limit = 10)
     {
-        // TODO: Implement Google Books API search
-        // 1. Build request URL with query parameters
-        // 2. Make HTTP GET request to /volumes?q={query}&maxResults={limit}
-        // 3. Deserialize response
-        // 4. Map Google Books items to BookResponse
-        // 5. Cache results in database if needed
+        // TODO: Cache results in database if needed
+        if (string.IsNullOrWhiteSpace(query))
+            throw new ArgumentException("Query cannot be empty.", nameof(query));
 
-        await Task.CompletedTask;
-        throw new NotImplementedException("Google Books search not yet implemented. See TODO comments.");
+        limit = Math.Clamp(limit, 1, 40);
+
+        var requestUrl = CreateSearchRequestUrl(query, limit);
+
+        HttpResponseMessage response = await _httpClient.GetAsync(requestUrl);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var error = await response.Content.ReadAsStringAsync();
+
+            throw new InvalidOperationException(
+                $"Google Books API error: {response.StatusCode} - {error}");
+        }
+
+        var googleResponseString =
+            await response.Content.ReadAsStringAsync();
+
+        var googleResponse = JsonSerializer.Deserialize<ExternalBookResponse>(
+            googleResponseString,
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
+        );
+
+        if (googleResponse?.Items == null)
+            return Result.Success(Enumerable.Empty<BookResponse>());
+
+        var books = googleResponse.Items
+            .Where(googleBookItem => googleBookItem.VolumeInfo != null)
+            .Select(googleBookItem =>
+            {
+                var googleVolumeInfo = googleBookItem.VolumeInfo!;
+
+                return googleVolumeInfo.ToBookResponse();
+            });
+
+        return Result.Success(books);
+    }
+
+    private string CreateSearchRequestUrl(string query, int limit)
+    {
+        return $"volumes?q={Uri.EscapeDataString(query)}" +
+            $"&maxResults={limit}" +
+            $"&key={GOOGLE_BOOKS_API_KEY}";
     }
 
     public async Task<BookResponse?> GetBookByExternalIdAsync(string externalId)
