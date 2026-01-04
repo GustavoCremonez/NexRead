@@ -10,6 +10,7 @@ using NexRead.Domain.Interfaces;
 using NexRead.Domain.Repositories;
 using NexRead.Infra.Context;
 using NexRead.Infra.ExternalApis;
+using NexRead.Infra.PolicyHandler;
 using NexRead.Infra.Repositories;
 using NexRead.Infra.Services;
 
@@ -31,7 +32,7 @@ public static class DependencyInjection
 
         services.AddScoped<IAuthAppService, AuthAppService>();
         services.AddScoped<IUserAppService, UserAppService>();
-        
+
         services.AddValidatorsFromAssembly(typeof(CreateAuthorValidator).Assembly);
 
         #region Author
@@ -60,8 +61,11 @@ public static class DependencyInjection
         #endregion
 
         #region External APIs
-        // TODO: Uncomment when Google Books client is fully implemented
-        // services.AddHttpClient<IExternalBookApiClient, GoogleBooksClient>();
+        services.AddHttpClient<IExternalBookApiClient, GoogleBooksClient>((sp, client) =>
+        {
+            client.BaseAddress = new Uri(configuration["GoogleBooks:BaseUrl"]);
+        })
+        .AddPolicyHandler(GoogleBooksRetryPolicy.GetRetryPolicy());
         // TODO: Add API key configuration from appsettings.json
         #endregion
 

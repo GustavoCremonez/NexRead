@@ -1,7 +1,7 @@
 using NexRead.Application.Common;
 using NexRead.Dto.User.Response;
-using NexRead.Application.Services;
 using NexRead.Domain.Repositories;
+using NexRead.Application.Interfaces;
 
 namespace NexRead.Application.AppServices;
 

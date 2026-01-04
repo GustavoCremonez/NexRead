@@ -1,3 +1,4 @@
+using NexRead.Application.Common;
 using NexRead.Dto.Book.Response;
 
 namespace NexRead.Application.Interfaces;
@@ -13,7 +14,7 @@ public interface IExternalBookApiClient
     /// <param name="query">Search query</param>
     /// <param name="limit">Maximum results</param>
     /// <returns>List of book responses</returns>
-    Task<IEnumerable<BookResponse>> SearchBooksAsync(string query, int limit = 10);
+    Task<Result<IEnumerable<BookResponse>>> SearchBooksAsync(string query, int limit = 10);
 
     /// <summary>
     /// Gets book details by external ID (e.g., Google Books ID)

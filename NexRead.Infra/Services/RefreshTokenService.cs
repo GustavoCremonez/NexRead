@@ -1,4 +1,4 @@
-using NexRead.Application.Services;
+using NexRead.Application.Interfaces;
 using NexRead.Domain.Entities;
 using NexRead.Domain.Repositories;
 using System.Security.Cryptography;
